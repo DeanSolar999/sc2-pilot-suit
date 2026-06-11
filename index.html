@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOLAR CUP TWO — 限定服裝</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --card: #16161f;
+      --border: #1e1e2e;
+      --border-light: #2a2a3e;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --text: #e8e8f0;
+      --text-muted: #6e6e88;
+      --text-dim: #9090a8;
+      --red: #c0392b;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans TC', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img { height: 28px; opacity: 0.9; }
+    .nav-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .nav-badge {
+      font-size: 11px;
+      background: var(--gold);
+      color: #0a0a0f;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: calc(100vh - 56px);
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: #050508;
+    }
+    .hero-poster {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(5,5,8,0.15) 0%,
+        rgba(5,5,8,0.1) 40%,
+        rgba(5,5,8,0.75) 70%,
+        rgba(5,5,8,0.97) 100%
+      );
+    }
+    .hero-info {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 40px 48px 56px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .hero-text { flex: 1; }
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: right;
+    }
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      justify-content: flex-end;
+    }
+    .meta-label { color: var(--text-muted); }
+    .meta-value { color: var(--text); font-weight: 500; }
+    .meta-value.highlight { color: var(--gold); font-size: 22px; font-weight: 700; }
+    .meta-value.deadline { color: #e87a7a; }
+    .hero-cta {
+      display: inline-block;
+      background: var(--gold);
+      color: #0a0a0f;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: 'Noto Sans TC', sans-serif;
+      white-space: nowrap;
+    }
+    .hero-cta:hover { background: var(--gold-light); }
+
+    /* ══ COLOR SELECTOR ══ */
+    .color-section {
+      padding: 80px 24px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .section-heading {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .color-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+      background: var(--card);
+    }
+    .color-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+    .color-card.active { border-color: var(--gold); }
+    .color-card img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+    .color-card-info {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .color-name { font-size: 13px; font-weight: 700; line-height: 1.2; }
+    .color-code { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; font-family: 'Inter', sans-serif; margin-top: 2px; }
+    .color-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      transition: all 0.2s;
+    }
+    .color-card.active .color-check {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #0a0a0f;
+    }
+
+    /* ══ ORDER SECTION ══ */
+    .order-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 24px;
+    }
+    .order-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* ── Order Items ── */
+    .order-items { display: flex; flex-direction: column; gap: 16px; }
+
+    .order-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+    .order-item-thumb {
+      width: 60px; height: 72px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    .order-item-body { flex: 1; }
+    .order-item-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .order-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Size Buttons */
+    .size-group { display: flex; gap: 6px; flex-wrap: wrap; }
+    .size-btn {
+      padding: 5px 10px;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-dim);
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .size-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .size-btn.selected { border-color: var(--gold); background: rgba(201,168,76,0.12); color: var(--gold); }
+
+    /* Qty Controls */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .qty-btn {
+      width: 32px; height: 32px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .qty-btn:hover { background: var(--border); color: var(--text); }
+    .qty-display {
+      width: 36px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 500;
+      border-left: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
+      padding: 0 4px;
+      line-height: 32px;
+    }
+
+    .order-item-summary {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+    .order-item-summary span { color: var(--gold); font-weight: 500; }
+
+    /* ══ CART PICKER ══ */
+    .picker-wrap { display: flex; flex-direction: column; gap: 20px; }
+    .picker-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+    .picker-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 13px;
+      border: 2px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--card); cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+      font-size: 13px; color: var(--text-dim);
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .picker-tab img { width: 22px; height: 28px; object-fit: cover; border-radius: 3px; }
+    .picker-tab:hover { border-color: var(--border-light); }
+    .picker-tab.active { border-color: var(--gold); color: var(--gold); }
+    .picker-body {
+      display: grid; grid-template-columns: 110px 1fr; gap: 20px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; align-items: start;
+    }
+    .picker-preview img {
+      width: 110px; height: 138px; object-fit: cover; border-radius: 8px; display: block;
+    }
+    .picker-name { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+    .picker-label {
+      font-size: 10px; color: var(--text-muted);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px;
+    }
+    .add-to-cart-btn {
+      width: 100%; margin-top: 14px;
+      padding: 10px;
+      background: var(--gold); color: #0a0a0f;
+      border: none; border-radius: var(--radius-sm);
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      transition: background 0.2s;
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .add-to-cart-btn:hover { background: var(--gold-light); }
+    .add-to-cart-btn:disabled { opacity: 0.4; cursor: not-allowed; background: var(--gold); }
+
+    /* Cart List */
+    .cart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .cart-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 18px; background: var(--card);
+      border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600;
+    }
+    .cart-badge {
+      background: var(--gold); color: #0a0a0f;
+      font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
+    }
+    .cart-empty-msg { padding: 28px 18px; text-align: center; color: var(--text-muted); font-size: 13px; }
+    .cart-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 11px 18px; border-bottom: 1px solid var(--border); transition: background 0.15s;
+    }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item:hover { background: var(--card); }
+    .cart-color-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .cart-item-info { flex: 1; font-size: 13px; }
+    .cart-item-name { font-weight: 500; }
+    .cart-item-detail { color: var(--text-muted); font-size: 11px; margin-top: 2px; }
+    .cart-item-price { font-size: 13px; color: var(--gold); font-weight: 500; white-space: nowrap; }
+    .cart-remove {
+      background: none; border: none; color: var(--text-muted);
+      cursor: pointer; font-size: 15px; padding: 4px; line-height: 1; transition: color 0.15s; flex-shrink: 0;
+    }
+    .cart-remove:hover { color: #e87a7a; }
+
+    /* ── Checkout Panel ── */
+    .checkout-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      position: sticky;
+      top: 72px;
+    }
+    .checkout-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* Form Elements */
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
+    .form-label .req { color: #e87a7a; }
+    input[type="text"],
+    input[type="tel"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--text);
+      font-family: 'Noto Sans TC', sans-serif;
+      transition: border-color 0.2s;
+    }
+    input:focus { outline: none; border-color: var(--gold); }
+
+    .radio-opts { display: flex; flex-direction: column; gap: 8px; }
+    .radio-opt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 13px;
+      transition: border-color 0.2s;
+    }
+    .radio-opt:has(input:checked) { border-color: var(--gold); }
+    .radio-opt input[type="radio"] { accent-color: var(--gold); }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    /* Order Summary */
+    .summary-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .summary-row.total {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 4px;
+    }
+    .summary-row.total span:last-child { color: var(--gold); }
+
+    /* Payment Info */
+    .payment-info {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid rgba(201,168,76,0.18);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .payment-info strong { color: var(--gold); }
+    .account-no {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--gold);
+      color: #0a0a0f;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: 'Noto Sans TC', sans-serif;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .submit-btn:hover { background: var(--gold-light); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .error-msg {
+      display: none;
+      font-size: 12px;
+      color: #e87a7a;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 12px; color: var(--text-muted); line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .consent-row input[type="checkbox"] { margin-top: 2px; accent-color: var(--gold); flex-shrink: 0; cursor: pointer; }
+    .consent-row a { color: var(--gold); text-decoration: none; }
+
+    /* ══ SUCCESS ══ */
+    #success-page {
+      display: none;
+      text-align: center;
+      padding: 100px 24px;
+    }
+    .success-icon { font-size: 60px; margin-bottom: 24px; }
+    .success-title { font-size: 26px; font-weight: 700; margin-bottom: 16px; }
+    .success-body {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 2;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+    .success-account {
+      display: inline-block;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 20px;
+      margin-top: 24px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      text-align: center;
+      padding: 32px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ══ RESPONSIVE ══ */
+
+    /* ── Tablet ≤ 768px ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+
+      /* Hero */
+      .hero { min-height: 100svh; }
+      .hero-info { flex-direction: column; align-items: flex-start; padding: 28px 20px 44px; gap: 20px; }
+      .hero-title { font-size: 34px; }
+      .hero-side { align-items: flex-start; width: 100%; }
+      .hero-meta { text-align: left; }
+      .meta-row { justify-content: flex-start; }
+      .hero-cta { display: block; width: 100%; text-align: center; }
+
+      /* Color section */
+      .color-section { padding: 48px 16px 36px; }
+      .section-heading { font-size: 22px; margin-bottom: 24px; }
+      .color-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+      /* Order section */
+      .order-section { padding: 40px 16px; }
+      .order-inner { grid-template-columns: 1fr; gap: 32px; }
+      .checkout-panel { position: static; padding: 20px; }
+
+      /* Picker: shrink image column */
+      .picker-body { grid-template-columns: 80px 1fr; padding: 16px; gap: 14px; }
+      .picker-preview img { width: 80px; height: 100px; }
+
+      /* Bigger touch targets */
+      .size-btn { padding: 8px 12px; font-size: 13px; }
+      .qty-btn { width: 40px; height: 40px; font-size: 20px; }
+      .qty-display { width: 40px; line-height: 40px; }
+    }
+
+    /* ── Mobile ≤ 480px ── */
+    @media (max-width: 480px) {
+      /* Nav */
+      .nav-title { font-size: 11px; letter-spacing: 1.5px; }
+      .nav-badge { font-size: 10px; padding: 2px 8px; }
+
+      /* Hero */
+      .hero-title { font-size: 26px; letter-spacing: -0.5px; }
+      .hero-eyebrow { font-size: 10px; letter-spacing: 3px; }
+      .meta-value.highlight { font-size: 20px; }
+
+      /* Sections */
+      .color-section { padding: 36px 14px 28px; }
+      .order-section { padding: 32px 14px; }
+      .color-grid { gap: 10px; }
+      .color-name { font-size: 12px; }
+      .color-code { font-size: 9px; }
+
+      /* Picker tabs: horizontal scroll, no wrap */
+      .picker-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 2px;
+      }
+      .picker-tabs::-webkit-scrollbar { display: none; }
+      .picker-tab { flex-shrink: 0; font-size: 12px; padding: 6px 10px; }
+      .picker-tab img { width: 18px; height: 22px; }
+
+      /* Picker body: stack vertically */
+      .picker-body { grid-template-columns: 1fr; padding: 14px; gap: 12px; }
+      .picker-preview img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3 / 4;
+        max-height: 180px;
+        object-fit: cover;
+      }
+
+      /* Cart */
+      .cart-item { padding: 10px 14px; gap: 8px; }
+      .cart-item-price { font-size: 12px; }
+      .cart-empty-msg { padding: 20px 14px; font-size: 12px; }
+
+      /* Checkout */
+      .checkout-panel { padding: 16px; }
+      .checkout-title { font-size: 14px; }
+      .radio-opt { font-size: 12px; padding: 9px 10px; }
+      .payment-info { font-size: 11px; }
+      .submit-btn { font-size: 14px; padding: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="images/logo.png" alt="Solar Cup Two" />
+    <span class="nav-title">Solar Cup Two</span>
+  </div>
+  <span class="nav-badge">限時預購</span>
+</nav>
+
+<div id="main-page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero-poster" src="images/poster.png" alt="曜日盃TWO 羽球邀請賽" />
+    <div class="hero-overlay"></div>
+    <div class="hero-info">
+      <div class="hero-text">
+        <p class="hero-eyebrow">2026 · Official Merchandise</p>
+        <h1 class="hero-title">SOLAR<br/><span>CUP TWO</span><br/>限定服裝</h1>
+        <p class="hero-subtitle">曜日盃二屆限定版運動衫 · 4 色 × 5 尺寸，數量有限</p>
+      </div>
+      <div class="hero-side">
+        <div class="hero-meta">
+          <div class="meta-row">
+            <span class="meta-label">售價</span>
+            <span class="meta-value highlight">NT$ 380</span>
+            <span class="meta-value" style="font-size:13px;color:var(--text-muted);">/件</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">截止</span>
+            <span class="meta-value deadline">7 / 15</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">取貨</span>
+            <span class="meta-value">8/15 大安運動中心</span>
+          </div>
+        </div>
+        <button class="hero-cta" onclick="document.getElementById('order-anchor').scrollIntoView({behavior:'smooth'})">
+          立即預購 →
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR SECTION -->
+  <section class="color-section">
+    <p class="section-label">Color Collection</p>
+    <h2 class="section-heading">選擇你的顏色</h2>
+    <div class="color-grid">
+      <div class="color-card active" onclick="selectColor(this,'grey','裝甲銀','images/shirt-grey.png')">
+        <img src="images/shirt-grey.png" alt="裝甲銀" />
+        <div class="color-card-info">
+          <div><div class="color-name">裝甲銀</div><div class="color-code">TYPE-G · ARMOR</div></div>
+          <span class="color-check">✓</span>
+        </div>
+      </div>
+      <div class="color-card" onclick="selectColor(this,'yellow','高頻金','images/shirt-yellow.png')">
+        <img src="images/shirt-yellow.png" alt="高頻金" />
+        <div class="color-card-info">
+          <div><div class="color-name">高頻金</div><div class="color-code">SYNC · 400%</div></div>
+          <span class="color-check">✓</span>
+        </div>
+      </div>
+      <div class="color-card" onclick="selectColor(this,'navy','深淵藍','images/shirt-navy.png')">
+        <img src="images/shirt-navy.png" alt="深淵藍" />
+        <div class="color-card-info">
+          <div><div class="color-name">深淵藍</div><div class="color-code">SECOND IMPACT</div></div>
+          <span class="color-check">✓</span>
+        </div>
+      </div>
+      <div class="color-card" onclick="selectColor(this,'pink','曙光粉','images/shirt-pink.png')">
+        <img src="images/shirt-pink.png" alt="曙光粉" />
+        <div class="color-card-info">
+          <div><div class="color-name">曙光粉</div><div class="color-code">AURORA · FINAL</div></div>
+          <span class="color-check">✓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER SECTION -->
+  <section class="order-section" id="order-anchor">
+    <div class="order-inner">
+
+      <!-- Left: Picker + Cart -->
+      <div>
+        <p class="section-label">Your Order</p>
+        <h2 class="section-heading" style="margin-bottom:24px;">選擇款式與數量</h2>
+        <div class="picker-wrap">
+
+          <!-- Color Tabs -->
+          <div class="picker-tabs">
+            <button class="picker-tab active" onclick="setPickerColor('grey',this)" data-color="grey">
+              <img src="images/shirt-grey.png" alt="裝甲銀" /> 裝甲銀
+            </button>
+            <button class="picker-tab" onclick="setPickerColor('yellow',this)" data-color="yellow">
+              <img src="images/shirt-yellow.png" alt="高頻金" /> 高頻金
+            </button>
+            <button class="picker-tab" onclick="setPickerColor('navy',this)" data-color="navy">
+              <img src="images/shirt-navy.png" alt="深淵藍" /> 深淵藍
+            </button>
+            <button class="picker-tab" onclick="setPickerColor('pink',this)" data-color="pink">
+              <img src="images/shirt-pink.png" alt="曙光粉" /> 曙光粉
+            </button>
+          </div>
+
+          <!-- Picker Body -->
+          <div class="picker-body">
+            <div class="picker-preview">
+              <img id="picker-img" src="images/shirt-grey.png" alt="shirt preview" />
+            </div>
+            <div class="picker-right">
+              <div class="picker-name" id="picker-color-name">裝甲銀 <span style="font-size:11px;color:var(--text-muted);font-family:'Inter'">TYPE-G · ARMOR</span></div>
+              <div class="picker-label">尺寸</div>
+              <div class="size-group" id="picker-sizes">
+                <button class="size-btn" onclick="setPickerSize('S',this)">S</button>
+                <button class="size-btn" onclick="setPickerSize('M',this)">M</button>
+                <button class="size-btn" onclick="setPickerSize('L',this)">L</button>
+                <button class="size-btn" onclick="setPickerSize('XL',this)">XL</button>
+                <button class="size-btn" onclick="setPickerSize('2XL',this)">2XL</button>
+              </div>
+              <div class="picker-label" style="margin-top:12px;">件數</div>
+              <div class="qty-control" style="width:fit-content;">
+                <button class="qty-btn" onclick="changePickerQty(-1)">−</button>
+                <span class="qty-display" id="picker-qty">1</span>
+                <button class="qty-btn" onclick="changePickerQty(1)">＋</button>
+              </div>
+              <button class="add-to-cart-btn" id="add-to-cart-btn" onclick="addToCart()" disabled>選擇尺寸後加入</button>
+            </div>
+          </div>
+
+          <!-- Cart -->
+          <div class="cart-wrap">
+            <div class="cart-header">
+              購物車
+              <span class="cart-badge" id="cart-count">0 件</span>
+            </div>
+            <div id="cart-list">
+              <div class="cart-empty-msg">購物車是空的，請選擇款式後加入</div>
+            </div>
+          </div>
+
+        </div><!-- /picker-wrap -->
+      </div>
+
+      <!-- Right: Checkout Panel -->
+      <div class="checkout-panel">
+        <div class="checkout-title">訂單確認</div>
+
+        <div class="form-group">
+          <label class="form-label">姓名 <span class="req">*</span></label>
+          <input type="text" id="f-name" placeholder="暱稱或臉書姓名" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">手機號碼 <span class="req">*</span></label>
+          <input type="tel" id="f-phone" placeholder="09xxxxxxxx" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">LINE ID <span class="req">*</span></label>
+          <input type="text" id="f-line" placeholder="@yourlineid" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">是否為曜日盃 TWO 參賽選手 <span class="req">*</span></label>
+          <div class="radio-opts">
+            <label class="radio-opt">
+              <input type="radio" name="is-player" value="是" /> 是，我是本屆參賽選手
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="is-player" value="否" /> 否，球友 / 一般訂購
+            </label>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="form-group">
+          <label class="form-label">取貨方式 <span class="req">*</span></label>
+          <div class="radio-opts">
+            <label class="radio-opt">
+              <input type="radio" name="pickup" value="現場取貨" onchange="updateSummary()" />
+              賽事現場取貨（8/15 大安運動中心）
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="pickup" value="7-11店到店" onchange="updateSummary()" />
+              7-11 店到店（運費 60 元，另行通知）
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">繳費方式</label>
+          <div style="color:var(--gold);font-size:0.95rem;padding:0.4rem 0;">
+            銀行轉帳（本活動為預購制，請於截止日前完成匯款）
+          </div>
+          <input type="radio" name="payment" value="銀行轉帳" checked style="display:none" />
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Summary -->
+        <div class="summary-rows" id="summary-rows">
+          <div class="summary-row"><span>尚未選擇任何款式</span></div>
+        </div>
+        <div class="summary-rows">
+          <div class="summary-row total">
+            <span>合計</span>
+            <span id="total-price">NT$ 0</span>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="payment-info">
+          <strong>轉帳帳號</strong><br/>
+          中國信託銀行（822）· 中崙分行<br/>
+          <span class="account-no">935-40158513</span><br/>
+          <span style="font-size:11px;color:#6e6e88;">
+            請於下單後三日內完成匯款，並備註訂購人姓名<br/>
+            待專人與您聯繫確認後，才算完成訂單
+          </span>
+        </div>
+
+        <div class="consent-row">
+          <input type="checkbox" id="consent-check" />
+          <label for="consent-check">我同意主辦單位為本次預購聯繫目的，蒐集與使用我的姓名、手機號碼及 LINE ID</label>
+        </div>
+        <button class="submit-btn" id="submit-btn" onclick="submitOrder()">確認送出預購</button>
+        <div class="error-msg" id="error-msg"></div>
+      </div>
+
+    </div><!-- /order-inner -->
+  </section>
+
+  <footer>
+    © 2026 曜日羽球團 · SOLAR CUP TWO · 主辦：阿定
+  </footer>
+
+</div><!-- /main-page -->
+
+<!-- SUCCESS PAGE -->
+<div id="success-page">
+  <div class="success-icon">🏸</div>
+  <div class="success-title">預購成功！</div>
+  <div class="success-body">
+    感謝您的預定<br/>
+    請於下單後三日內完成匯款<br/>
+    並備註訂購人姓名<br/>
+    待專人與您聯繫後<br/>
+    才算完成訂單
+  </div>
+  <div class="success-account">中信（822）935-40158513</div>
+</div>
+
+<script>
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxoLJ0tHmy17VFOcGQdnoTxYrKz5q8iiqWTje3PmLK584Nvgf2WdgOXm-GEJQTeNWy9/exec";
+  const PRICE = 380;
+
+  const colorNames  = { grey:'裝甲銀',   yellow:'高頻金',     navy:'深淵藍',       pink:'曙光粉'       };
+  const colorCodes  = { grey:'TYPE-G · ARMOR', yellow:'SYNC · 400%', navy:'SECOND IMPACT', pink:'AURORA · FINAL' };
+  const colorImages = { grey:'images/shirt-grey.png', yellow:'images/shirt-yellow.png', navy:'images/shirt-navy.png', pink:'images/shirt-pink.png' };
+  const colorDots   = { grey:'#9EA8A4', yellow:'#C9A84C', navy:'#2E4A6E', pink:'#D4748A' };
+
+  let cart = [];
+  let pickerColor = 'grey';
+  let pickerSize  = null;
+  let pickerQty   = 1;
+
+  // ── Hero color switcher (color section) ──
+  function selectColor(el, key, name, imgSrc) {
+    document.querySelectorAll('.color-card').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    const hero = document.querySelector('.hero-poster');
+    if (hero) {
+      hero.style.opacity = '0';
+      setTimeout(() => { hero.src = imgSrc; hero.style.opacity = '1'; }, 200);
+    }
+  }
+
+  // ── Picker controls ──
+  function setPickerColor(color, el) {
+    pickerColor = color;
+    pickerSize  = null;
+    document.querySelectorAll('.picker-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('picker-img').src = colorImages[color];
+    document.getElementById('picker-color-name').innerHTML =
+      `${colorNames[color]} <span style="font-size:11px;color:var(--text-muted);font-family:'Inter'">${colorCodes[color]}</span>`;
+    document.querySelectorAll('#picker-sizes .size-btn').forEach(b => b.classList.remove('selected'));
+    updateAddBtn();
+  }
+
+  function setPickerSize(size, el) {
+    pickerSize = size;
+    document.querySelectorAll('#picker-sizes .size-btn').forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+    updateAddBtn();
+  }
+
+  function changePickerQty(delta) {
+    pickerQty = Math.max(1, Math.min(99, pickerQty + delta));
+    document.getElementById('picker-qty').textContent = pickerQty;
+  }
+
+  function updateAddBtn() {
+    const btn = document.getElementById('add-to-cart-btn');
+    btn.disabled    = !pickerSize;
+    btn.textContent = pickerSize ? '加入購物車' : '選擇尺寸後加入';
+  }
+
+  // ── Cart ──
+  function addToCart() {
+    if (!pickerSize) return;
+    const existing = cart.find(i => i.color === pickerColor && i.size === pickerSize);
+    if (existing) {
+      existing.qty += pickerQty;
+    } else {
+      cart.push({ color: pickerColor, colorName: colorNames[pickerColor], size: pickerSize, qty: pickerQty });
+    }
+    pickerQty = 1;
+    document.getElementById('picker-qty').textContent = 1;
+    renderCart();
+    updateSummary();
+    const btn = document.getElementById('add-to-cart-btn');
+    btn.textContent = '✓ 已加入';
+    setTimeout(() => { btn.textContent = '加入購物車'; }, 800);
+  }
+
+  function removeFromCart(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+    updateSummary();
+  }
+
+  function renderCart() {
+    const list  = document.getElementById('cart-list');
+    const total = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cart-count').textContent = `${total} 件`;
+    if (!cart.length) {
+      list.innerHTML = '<div class="cart-empty-msg">購物車是空的，請選擇款式後加入</div>';
+      return;
+    }
+    list.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <div class="cart-color-dot" style="background:${colorDots[item.color]}"></div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.colorName}</div>
+          <div class="cart-item-detail">尺寸 ${item.size} × ${item.qty} 件</div>
+        </div>
+        <div class="cart-item-price">NT$ ${(item.qty * PRICE).toLocaleString()}</div>
+        <button class="cart-remove" onclick="removeFromCart(${idx})">✕</button>
+      </div>
+    `).join('');
+  }
+
+  function cartColorString(colorKey) {
+    const items = cart.filter(i => i.color === colorKey);
+    if (!items.length) return '不購買';
+    return items.map(i => `${i.qty}件-${i.size}`).join('、');
+  }
+
+  function updateSummary() {
+    const rows = document.getElementById('summary-rows');
+    let html  = '';
+    let total = 0;
+    cart.forEach(item => {
+      const sub = item.qty * PRICE;
+      total += sub;
+      html += `<div class="summary-row"><span>${item.colorName} ${item.size} × ${item.qty}</span><span>NT$ ${sub.toLocaleString()}</span></div>`;
+    });
+    const pickup = document.querySelector('input[name="pickup"]:checked');
+    if (pickup && pickup.value === '7-11店到店') {
+      total += 60;
+      html += `<div class="summary-row"><span>運費</span><span>NT$ 60</span></div>`;
+    }
+    rows.innerHTML = cart.length
+      ? html
+      : '<div class="summary-row"><span style="color:var(--text-muted)">尚未選擇任何款式</span></div>';
+    document.getElementById('total-price').textContent = `NT$ ${total.toLocaleString()}`;
+  }
+
+  async function submitOrder() {
+    const name     = document.getElementById('f-name').value.trim();
+    const phone    = document.getElementById('f-phone').value.trim();
+    const lineId   = document.getElementById('f-line').value.trim();
+    const isPlayer = document.querySelector('input[name="is-player"]:checked');
+    const pickup   = document.querySelector('input[name="pickup"]:checked');
+    const payment  = document.querySelector('input[name="payment"]:checked');
+
+    if (!name || !phone || !lineId) { showError('請填寫姓名、手機號碼與 LINE ID'); return; }
+    if (!/^09\d{8}$/.test(phone)) { showError('手機格式錯誤，請填寫 09 開頭的 10 位數字'); return; }
+    if (!document.getElementById('consent-check').checked) { showError('請勾選同意個人資料蒐集聲明'); return; }
+    if (!isPlayer) { showError('請選擇是否為參賽選手'); return; }
+    if (!cart.length) { showError('請至少加入一件商品到購物車'); return; }
+    if (!pickup)   { showError('請選擇取貨方式'); return; }
+    if (!payment)  { showError('請選擇繳費方式'); return; }
+
+    const btn = document.getElementById('submit-btn');
+    btn.disabled    = true;
+    btn.textContent = '送出中...';
+    document.getElementById('error-msg').style.display = 'none';
+
+    const data = {
+      姓名: name, 手機: phone, LINE_ID: lineId, 是否參賽: isPlayer.value,
+      銀灰:   cartColorString('grey'),
+      奶油黃: cartColorString('yellow'),
+      深藍:   cartColorString('navy'),
+      粉紅:   cartColorString('pink'),
+      取貨方式: pickup.value, 繳費方式: payment.value, 備註: ''
+    };
+
+    try {
+      const res  = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (json.result === 'success') {
+        document.getElementById('main-page').style.display = 'none';
+        document.getElementById('success-page').style.display = 'block';
+        window.scrollTo(0, 0);
+      } else throw new Error(json.message || 'error');
+    } catch {
+      showError('送出失敗，請稍後再試或聯繫主辦');
+      btn.disabled    = false;
+      btn.textContent = '確認送出預購';
+    }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('error-msg');
+    el.textContent     = msg;
+    el.style.display   = 'block';
+  }
+</script>
+
+</body>
+</html>

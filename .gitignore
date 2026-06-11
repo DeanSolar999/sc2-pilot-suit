@@ -1,0 +1,5 @@
+appscript.gs
+generate_sheets.py
+*.xlsx
+*.xls
+.DS_Store
