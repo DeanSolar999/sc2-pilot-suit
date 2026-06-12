@@ -1006,6 +1006,12 @@
           </span>
         </div>
 
+        <div class="form-group">
+          <label class="form-label" for="f-bank-code">匯款帳號末五碼 <span style="color:var(--accent);">*</span></label>
+          <input class="form-input" id="f-bank-code" type="text" inputmode="numeric" maxlength="5" placeholder="請輸入您匯款帳戶的後 5 位數字" />
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">用於對帳確認，請填寫您轉帳使用帳戶的末 5 位數</div>
+        </div>
+
         <div class="consent-row">
           <input type="checkbox" id="consent-check" />
           <label for="consent-check">我同意主辦單位為本次預購聯繫目的，蒐集與使用我的姓名、手機號碼及 LINE ID</label>
@@ -1180,6 +1186,9 @@
     if (!pickup)   { showError('請選擇取貨方式'); return; }
     if (!payment)  { showError('請選擇繳費方式'); return; }
 
+    const bankCode = document.getElementById('f-bank-code').value.trim();
+    if (!/^\d{5}$/.test(bankCode)) { showError('請填寫匯款帳號末五碼（5 位數字）'); return; }
+
     const btn = document.getElementById('submit-btn');
     btn.disabled    = true;
     btn.textContent = '送出中...';
@@ -1191,7 +1200,7 @@
       奶油黃: cartColorString('yellow'),
       深藍:   cartColorString('navy'),
       粉紅:   cartColorString('pink'),
-      取貨方式: pickup.value, 繳費方式: payment.value, 備註: ''
+      取貨方式: pickup.value, 繳費方式: payment.value, 匯款末五碼: bankCode, 備註: ''
     };
 
     try {
