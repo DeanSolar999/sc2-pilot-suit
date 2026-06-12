@@ -979,11 +979,17 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">繳費方式</label>
-          <div style="color:var(--gold);font-size:0.95rem;padding:0.4rem 0;">
-            銀行轉帳（本活動為預購制，請於下單時同時完成匯款）
+          <label class="form-label">繳費方式 <span class="req">*</span></label>
+          <div class="radio-opts">
+            <label class="radio-opt">
+              <input type="radio" name="payment" value="銀行轉帳" checked onchange="updatePaymentInfo()" />
+              銀行轉帳
+            </label>
+            <label class="radio-opt">
+              <input type="radio" name="payment" value="LINE Pay Money" onchange="updatePaymentInfo()" />
+              LINE Pay Money（給阿定）
+            </label>
           </div>
-          <input type="radio" name="payment" value="銀行轉帳" checked style="display:none" />
         </div>
 
         <div class="divider"></div>
@@ -999,8 +1005,8 @@
           </div>
         </div>
 
-        <!-- Payment -->
-        <div class="payment-info">
+        <!-- Payment Info: 銀行轉帳 -->
+        <div class="payment-info" id="bank-transfer-info">
           <strong>轉帳帳號</strong><br/>
           中國信託銀行（822）· 中崙分行<br/>
           <span class="account-no">935-40158513</span><br/>
@@ -1010,10 +1016,19 @@
           </span>
         </div>
 
-        <div class="form-group">
-          <label class="form-label" for="f-bank-code">匯款帳號末五碼 <span style="color:var(--accent);">*</span></label>
-          <input class="form-input" id="f-bank-code" type="text" inputmode="numeric" maxlength="5" placeholder="請輸入您匯款帳戶的後 5 位數字" />
-          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">用於對帳確認，請填寫您轉帳使用帳戶的末 5 位數</div>
+        <!-- Payment Info: LINE Pay Money -->
+        <div class="payment-info" id="linepay-info" style="display:none;">
+          <strong>LINE Pay Money</strong><br/>
+          請透過 LINE Pay Money 傳款給阿定<br/>
+          <span style="font-size:11px;color:#6e6e88;">
+            傳款後請截圖傳給阿定確認，才算完成訂單
+          </span>
+        </div>
+
+        <div class="form-group" id="bank-code-group">
+          <label class="form-label" for="f-bank-code">匯款帳號末五碼</label>
+          <input class="form-input" id="f-bank-code" type="text" inputmode="numeric" maxlength="5" placeholder="選填，請輸入匯款帳戶的後 5 位數字" />
+          <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">選填，用於對帳確認</div>
         </div>
 
         <div class="consent-row">
@@ -1148,6 +1163,14 @@
     `).join('');
   }
 
+  function updatePaymentInfo() {
+    const payment = document.querySelector('input[name="payment"]:checked');
+    const isBank = !payment || payment.value === '銀行轉帳';
+    document.getElementById('bank-transfer-info').style.display = isBank ? '' : 'none';
+    document.getElementById('linepay-info').style.display       = isBank ? 'none' : '';
+    document.getElementById('bank-code-group').style.display    = isBank ? '' : 'none';
+  }
+
   function cartColorString(colorKey) {
     const items = cart.filter(i => i.color === colorKey);
     if (!items.length) return '不購買';
@@ -1191,7 +1214,10 @@
     if (!payment)  { showError('請選擇繳費方式'); return; }
 
     const bankCode = document.getElementById('f-bank-code').value.trim();
-    if (!/^\d{5}$/.test(bankCode)) { showError('請填寫匯款帳號末五碼（5 位數字）'); return; }
+    const isLinePay = payment && payment.value === 'LINE Pay Money';
+    if (!isLinePay && bankCode && !/^\d{5}$/.test(bankCode)) {
+      showError('匯款帳號末五碼格式錯誤（需為 5 位數字）'); return;
+    }
 
     const btn = document.getElementById('submit-btn');
     btn.disabled    = true;
